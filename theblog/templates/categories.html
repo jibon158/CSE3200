@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if category_posts%}
+<br><br><br>
+  <h1 align="center" style="color: #16438F ;">{{ cats }}</h1>
+  <br>
+    {% for post in category_posts %}
+    <a href= "{% url 'article-detail' post.pk %}" style="text-decoration: none;"><h3>{{ post.title }}</h3></a>
+      <div class="row">
+        <div class="col-sm-4">
+          <a href= "{% url 'article-detail' post.pk %}">
+            <img src="{{ post.header_image.url }}" height="100%" width="100%">
+          </a>
+        </div>
+        <div class="col-sm-8">
+            <br>
+            {{ post.snippet }}
+        </div>
+
+      </div>
+      <br><br>
+    {% endfor %}
+{% else %}
+  <h2>Sorry, this page doesn't exist!</h2>
+
+{% endif%}
+
+
+{% endblock %}

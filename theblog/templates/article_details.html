@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{ post.title_tag }} {% endblock %}
+
+{% block content %}
+<br><br><br>
+<br>
+<div class="row">
+  <div class="col-sm-2">
+  </div>
+  <div class="col-sm-4">
+    <h1> {{ post.title }} </h1>
+    <br><br><br>
+    <h4>
+      Published By:  <a href="{% url 'show_profile_page' post.author.user_releted_profile.id %}" style="text-decoration: none; color: red;">
+        {{ post.author.first_name }} {{ post.author.last_name }}</a>
+    </h4>
+    <p> {{ post.post_date }}</p>
+    {% if user.is_authenticated %}
+      {% if user.id == post.author.id %}
+        <a href="{% url 'update_post' post.pk %}" class="btn btn-primary btn-sm">Edit</a>
+        <a href= "{% url 'delete_post' post.pk %}" class="btn btn-danger btn-sm">Delete</a>
+      {% endif %}
+
+    {% endif %}
+
+  </div>
+  <div class="col-sm-4">
+    {% if post.header_image %}
+     <img src="{{ post.header_image.url }}" width="100%"  >
+    {% endif %}
+  </div>
+  <div class="col-sm-2">
+  </div>
+</div>
+
+<br>
+
+<div class="row">
+  <div class="col-sm-2">
+  </div>
+  <div class="col-sm-8">
+    {{ post.body|safe }}
+    <form action="{% url 'like_post' post.pk %}" method="POST">
+      {% csrf_token %}
+    {% if user.is_authenticated %}
+      {% if liked %}
+        <button type="submit", name="post_id", value="{{ post.id }}" class="btn btn-danger btn-sm">Unlike</button>
+
+      {% else %}
+        <button type="submit", name="post_id", value="{{ post.id }}" class="btn btn-primary btn-sm">Like</button>
+        {% endif %}
+
+    {% endif %}
+      {{ total_likes }} people likes this
+    </form>
+    
+    <hr>
+    <br>
+
+      <a href= "{% url 'home' %} " class="btn btn-secondary"> Back </a>
+  </div>
+
+  <div class="col-sm-2">
+  </div>
+
+
+  <br/>
+  <br/>
+</div>
+
+
+
+
+{% endblock %}

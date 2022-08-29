@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %} Login {% endblock %}
+
+{% block content %}
+
+<br><br><br><br>
+<h1 align="center" style="color: #16438F ;">Login</h1>
+<br>
+<br>
+<div class="form-group">
+  <form method="POST">
+      {% csrf_token %}
+      <div class="form-group">
+          <input type="text" class="form-control" name="username" placeholder="Username">
+        </div>
+        <br>
+        <div class="form-group">
+          <input type="password" class="form-control" name="password" placeholder="Password">
+        </div>
+        <br>
+        <button class="btn btn-secondary">Login</button>
+        <br><br>
+        Not Registered? Sign Up <a href="{% url 'register' %}" >Here.....</a>
+  </form>
+</div>
+
+{% endblock %}

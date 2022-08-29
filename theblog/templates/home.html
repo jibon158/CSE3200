@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<br><br><br><br>
+<h1 align="center" style="color: #16438F ;">Posts</h1>
+
+{% for post in object_list %}
+    <a href= "{% url 'article-detail' post.pk %}" style="text-decoration: none;"><h3>{{ post.title }}</h3></a>
+
+    <div class="row">
+      <div class="col-sm-4">
+        <a href= "{% url 'article-detail' post.pk %}">
+          <img src="{{ post.header_image.url }}" height="100%" width="100%">
+        </a>
+      </div>
+      <div class="col-sm-8">
+          <a href="{% url 'category' post.Category %}" style="text-decoration: none; color: red;"  >{{post.Category}}</a>
+          <br><br>
+          {{ post.snippet }}
+      </div>
+
+    </div>
+
+    <!-- {% if user.is_authenticated %}
+    <a href="{% url 'update_post' post.pk %}" class="btn btn-primary btn-sm">Edit</a>
+    <a href= "{% url 'delete_post' post.pk %}" class="btn btn-danger btn-sm">Delete</a>
+    {% endif %} -->
+
+    <!-- {{ post.body|slice:":200"|safe }} </li> -->
+
+    <br><br>
+{% endfor %}
+
+
+
+
+{% endblock %}

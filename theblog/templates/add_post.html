@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %} Create a New Blog Post {% endblock %}
+
+{% block content %}
+<br><br><br><br>
+{% if user.is_authenticated %}
+<h1 align="center" style="color: #16438F ;">Add Post</h1>
+<br>
+<br>
+<div class="form-group">
+  <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.media }}
+      {{ form.as_p }}
+      <button class="btn btn-secondary">Post</button>
+  </form>
+</div>
+<!-- javascript code to identify the author  -->
+<script>
+  var name = "{{ user.id }}";
+  document.getElementById("elder").value = name
+</script>
+{% else %}
+<h2>You are not allowed here!</h2>
+
+{% endif %}
+
+{% endblock %}

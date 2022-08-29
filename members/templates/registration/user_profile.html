@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<br><br><br><br>
+<h1 align="center" style="color: #16438F ;" >{{ page_user }}'s Profile</h1><br><br>
+
+<div class="card mb-3" style="max-width: 1540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{ page_user.profile_pic.url }}" class="img-fluid rounded-start">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{ page_user.user.first_name }} {{ page_user.user.last_name }}</h5>
+        <br>
+        <p>
+          {% if page_user.facebook_url %}
+            <a href="{{ page_user.facebook_url }}" class="fa fa-facebook" style=""></a>
+          {% endif %}
+          {% if page_user.twitter_url %}
+            <a href="{{ page_user.twitter_url }}" class="fa fa-twitter"></a>
+          {% endif %}
+          {% if page_user.linkdin_url %}
+            <a href="{{ page_user.linkdin_url }}" class="fa fa-linkedin"></a>
+          {% endif %}
+          {% if page_user.instagram_url %}
+            <a href="{{ page_user.instagram_url }}" class="fa fa-instagram"></a>
+          {% endif %}
+        </p><br>
+        <p class="card-text">{{ page_user.bio }}</p>
+        <!-- Add font awesome icons -->
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<br><br><br><br>
+{% if user.is_superuser %}
+<a class="btn btn-info" href="{% url 'admin_view' %}">Contacts</a>
+{% endif %}
+<br><br><br>
+<h1 align="center" style="color: #16438F ;">Contents By the User</h1>
+<br><br>
+{% for post in user_post %}
+    <a href= "{% url 'article-detail' post.pk %}" style="text-decoration: none;"><h3>{{ post.title }}</h3></a>
+
+    <div class="row">
+      <div class="col-sm-4">
+        <a href= "{% url 'article-detail' post.pk %}">
+          <img src="{{ post.header_image.url }}" height="100%" width="100%">
+        </a>
+      </div>
+      <div class="col-sm-8">
+          <a href="{% url 'category' post.Category %}" style="text-decoration: none; color: red;"  >{{post.Category}}</a>
+          <br><br>
+          {{ post.snippet }}
+      </div>
+
+    </div>
+
+
+<br><br><br>
+
+{% endfor %}
+{% endblock %}

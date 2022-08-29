@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<br><br><br><br>
+{% if user.is_superuser %}
+<h1 align="center" style="color: #16438F ;">Messages</h1>
+
+{% for users in object_list %}
+
+    <div class="card mb-3" style="max-width: 1540px;">
+      <div class="row g-0">
+        <div class="col-md-4">
+        <h2 class="card-title" style="color:red;">{{ users.name }}</h2>
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h4 class="card-text">{{ users.text }}</h4>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+{% endfor %}
+
+{% else %}
+  <h2>You are not allowed here!</h2>
+{% endif %}
+
+
+
+{% endblock %}
